@@ -5,6 +5,7 @@ from playsound import playsound
 from time import sleep
 from bs4 import BeautifulSoup
 from threading import Thread
+import config
 
 
 if len(sys.argv) == 2:
@@ -21,11 +22,7 @@ print(f"\n🔵 Checking Newegg for RTX 3070 graphics cards with a price limit of
 
 numLoops = 0
 numDealsSeen = 0
-sleepDuration = 15
-notificationSound = '/home/ross/Sounds/Notifications/Material Adventures/Discovery.ogg'
 url = 'https://www.newegg.com/p/pl?N=100007709%20601357250%204131&PageSize=96&Order=1'
-
-
 
 def getItems():
     response = requests.get(url)
@@ -60,7 +57,7 @@ def notify():
     notification.title = "Found 3070 in stock!"
     notification.message = "Check your terminal!"
     notification.send()
-    playsound(notificationSound)
+    playsound(config.notificationSoundFile)
 
 while True:
     try:
@@ -78,6 +75,6 @@ while True:
         numLoops += 1
         print(f"\n============ Total checks: {numLoops}  |  Total 3070 deals seen: {numDealsSeen} ============")
         print(f"                        Press CTRL + C to exit.")
-        sleep(sleepDuration)
+        sleep(config.sleepDuration)
     except KeyboardInterrupt:
         sys.exit("\n🛑 Price checker killed.")
