@@ -25,9 +25,6 @@ print(f"\n🔵 Checking Newegg for products with a price limit of ${priceLimit}.
 
 numLoops = 0
 numDealsSeen = 0
-#sleepDuration = 15
-# notificationSoundFile = '/home/ross/Sounds/Notifications/Material Adventures/Discovery.ogg'
-#url = 'https://www.newegg.com/p/pl?N=100007709%204131%20601359415&PageSize=96&Order=1'
 
 def getItems():
     response = requests.get(url)
@@ -69,7 +66,7 @@ if __name__ == "__main__":
                 numDealsSeen += len(deals)
                 for deal in deals:
                     print("💵 " + deal["price"])
-                    # title of product up to 70 chars
+                    # title of product up to 75 chars
                     print("🎮 " + deal["name"][:75] )
                     print("🔗 " + deal["href"] + "\n")
                 thread = Thread(target=notify, daemon=True)
