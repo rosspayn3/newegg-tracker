@@ -1,5 +1,4 @@
-import sys
-import requests, lxml
+import sys, requests, lxml
 from notifypy import Notify
 from playsound import playsound
 from time import sleep
