@@ -1,2 +1,2 @@
 sleepDuration = 15
-notificationSoundFile = '/path/to/notification/sound/file.mp3'
+notificationSoundFile = '/home/ross/Sounds/Notifications/Material Adventures/Discovery.ogg'
