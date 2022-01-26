@@ -66,7 +66,7 @@ while True:
         if len(deals) > 0:
             numDealsSeen += len(deals)
             for deal in deals:
-                print("💵 " + deal["price"] + " (shipping incl.)")
+                print("💵 " + deal["price"] + " (shipping not incl.)")
                 # title of product up to 70 chars
                 print("🎮 " + deal["name"][:75] )
                 print("🔗 " + deal["href"] + "\n")
