@@ -3,7 +3,15 @@ Scripts that use BeautifulSoup to scrape Newegg for a given product that's in st
 
 ## Dependencies
 
-`pip3 install playsound lxml beautifulsoup4 notify-py`
+### Linux (and MacOS?)
+
+`pip3 install lxml beautifulsoup4 notify-py playsound`
+
+### Windows
+
+The newer versions of the playsound library don't play well with Windows using `\` instead of `/` as a path separator, so an older version must be used for these scripts to run on Windows.
+
+`pip3 install lxml beautifulsoup4 notify-py playsound==1.2.2`
 
 ## Usage
 Modify `config.py` as you want. It contains two variables: 
