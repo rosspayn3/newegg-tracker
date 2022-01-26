@@ -8,7 +8,7 @@ Scripts that use BeautifulSoup to scrape Newegg for a given product that's in st
 ## Usage
 Modify `config.py` as you want. It contains two variables: 
 - (integer) `sleepDuration` : The number of seconds to wait between checks. Setting this to a higher number may reduce the chance you get flagged (and possibly IP banned).
-- (string) `notificationSoundFile` : An absolute path to an audio file to be played when the script finds a product. (included is `Discovery.ogg`, which is the file I used)
+- (string) `notificationSoundFile` : An absolute path to an audio file to be played when the script finds a product. (included is `Discovery.mp3` which is the file I used)
 
 #### For `newegg-generic.py`
 1. Create a new filtered search on Newegg for your desired product *. Copy this URL to be passed to the script.
