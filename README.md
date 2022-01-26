@@ -1,5 +1,5 @@
 # newegg-tracker
-Scripts that use BeautifulSoup to scrape Newegg for a given product that's in stock and below a price threshold. Primary development environment is an Ubuntu-based Linux distro, so there may be some issues with Windows that take a little longer to fix.
+Scripts that use BeautifulSoup to scrape Newegg for a given product that's in stock and below a price threshold. Primary development environment is an Ubuntu-based Linux distro, so there may be some issues with Windows and MacOS that take a little longer to fix.
 
 ## Dependencies
 
