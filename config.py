@@ -1,5 +1,5 @@
 import os
 
-thisDir = os.path.dirname(os.path.realpath(__file__))
 sleepDuration = 15
+thisDir = os.path.dirname(os.path.realpath(__file__))
 notificationSoundFile = os.path.join(thisDir, 'Discovery.mp3')
