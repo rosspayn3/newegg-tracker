@@ -64,7 +64,7 @@ if __name__ == "__main__":
             if len(deals) > 0:
                 numDealsSeen += len(deals)
                 for deal in deals:
-                    print("💵 " + deal["price"])
+                    print("💵 " + deal["price"] + " (shipping incl.)")
                     # title of product up to 75 chars
                     print("🎮 " + deal["name"][:75] )
                     print("🔗 " + deal["href"] + "\n")
