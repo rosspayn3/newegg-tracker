@@ -33,23 +33,22 @@ def getItems():
 def checkPrices(items):
     deals = []
     for item in items:
-        # get price from item
-        stringPrice = item.find("li", class_="price-current").find("strong").text
-        # remove comma
-        intPrice = stringPrice.replace(",", "")
-        intPrice = int(intPrice)
-        # check if price less than limit
-        if(intPrice <= priceLimit):
-            # add custom item to deals found
-            nameTag = item.find("div", class_="item-info").find("a", class_="item-title")
-            itemName = nameTag.text
-            itemLink = nameTag.get("href")
-            dealItem = {
-                "price": "$" + stringPrice,
-                "name": itemName,
-                "href": itemLink
-            }
-            deals.append(dealItem)
+        try:
+            stringPrice = item.find("li", class_="price-current").find("strong").text
+            intPrice = stringPrice.replace(",", "")
+            intPrice = int(intPrice)
+            if(intPrice <= priceLimit):
+                nameTag = item.find("div", class_="item-info").find("a", class_="item-title")
+                itemName = nameTag.text
+                itemLink = nameTag.get("href")
+                dealItem = {
+                    "price": "$" + stringPrice,
+                    "name": itemName,
+                    "href": itemLink
+                }
+                deals.append(dealItem)
+        except:
+            pass
     return deals
 
 def notify():
@@ -67,7 +66,7 @@ while True:
             numDealsSeen += len(deals)
             for deal in deals:
                 print("💵 " + deal["price"] + " (shipping not incl.)")
-                # title of product up to 70 chars
+                # title of product up to 75 chars
                 print("🎮 " + deal["name"][:75] )
                 print("🔗 " + deal["href"] + "\n")
             thread = Thread(target=notify, daemon=True)

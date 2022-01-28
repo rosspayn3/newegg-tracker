@@ -34,19 +34,22 @@ def getItems():
 def checkPrices(items):
     deals = []
     for item in items:
-        stringPrice = item.find("li", class_="price-current").find("strong").text
-        intPrice = stringPrice.replace(",", "")
-        intPrice = int(intPrice)
-        if(intPrice <= priceLimit):
-            nameTag = item.find("div", class_="item-info").find("a", class_="item-title")
-            itemName = nameTag.text
-            itemLink = nameTag.get("href")
-            dealItem = {
-                "price": "$" + stringPrice,
-                "name": itemName,
-                "href": itemLink
-            }
-            deals.append(dealItem)
+        try:
+            stringPrice = item.find("li", class_="price-current").find("strong").text
+            intPrice = stringPrice.replace(",", "")
+            intPrice = int(intPrice)
+            if(intPrice <= priceLimit):
+                nameTag = item.find("div", class_="item-info").find("a", class_="item-title")
+                itemName = nameTag.text
+                itemLink = nameTag.get("href")
+                dealItem = {
+                    "price": "$" + stringPrice,
+                    "name": itemName,
+                    "href": itemLink
+                }
+                deals.append(dealItem)
+        except:
+            pass
     return deals
 
 def notify():
