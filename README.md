@@ -21,6 +21,8 @@ pip3 install lxml beautifulsoup4 notify-py playsound==1.2.2
 
 1. Create a dummy email account for the script to send emails from. If using Gmail, you will need to change the setting called ["Less secure app access"](https://support.google.com/accounts/answer/6010255?hl=en#zippy=%2Cif-less-secure-app-access-is-on-for-your-account) to allow the script to send emails from that address. This setting is not available for accounts with MFA enabled, meaning the only security measure will be the account's password ([use a secure password!](https://rpayne.dev/projects/passwordgenerator/)). This setting may exist in a different form on other mail providers.
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Also note that these emails may get sent to your spam folder because they're from a new account.
+
 2. Create a file named `smtpConfig.py` in the `newegg-tracker` directory. Copy and paste the following into `smtpConfig.py`, then edit with the appropriate information:
     ```
     senderEmail = 'address-you-just-created@mail.com'
@@ -29,8 +31,8 @@ pip3 install lxml beautifulsoup4 notify-py playsound==1.2.2
     ```
 
 3. Modify `config.py` as you want. It contains two variables: 
-- (integer) `sleepDuration` : The number of seconds to wait between checks. Setting this to a higher number may reduce the chance you get flagged (and possibly IP banned).
-- (string) `notificationSoundFile` : An absolute path to an audio file to be played when the script finds a product. (included is `Discovery.mp3` which is the file I used)
+    - (integer) `sleepDuration` : The number of seconds to wait between checks. Setting this to a higher number may reduce the chance you get flagged (and possibly IP banned).
+    - (string) `notificationSoundFile` : An absolute path to an audio file to be played when the script finds a product. (included is `Discovery.mp3` which is the file I used)
 
 ## Usage
 
@@ -49,6 +51,6 @@ python3 newegg-3060-ti.py [999]
 python3 newegg-generic.py 600 "https://www.newegg.com/p/pl?N=100007709%204131%20601359415&PageSize=96&Order=1"
 ```
 
-**Note: if a price filter is set on the Newegg URL, it must be higher than the amount passed to the script or no results will ever be returned.*
+&nbsp;&nbsp;&nbsp;&nbsp;**Note: if a price filter is set on the Newegg URL, it must be higher than the amount passed to the script or no results will ever be returned.*
 
 
