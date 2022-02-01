@@ -1,10 +1,12 @@
-import sys, requests, lxml
+import sys,requests, smtplib, config, smtpConfig
+from email.mime.text import MIMEText
 from notifypy import Notify
 from playsound import playsound
 from time import sleep
 from bs4 import BeautifulSoup
 from threading import Thread
-import config
+from datetime import datetime
+from email.mime.multipart import MIMEMultipart
 
 if len(sys.argv) == 3:
     try:
@@ -12,15 +14,10 @@ if len(sys.argv) == 3:
         url = sys.argv[2]
     except:
         sys.exit(f"\n🛑 Something went wrong. Correct usage is:\npython3 {sys.argv[0]} [integer price limit] [string Newegg URL]\n")
-elif len(sys.argv) == 2:
-    try:
-        priceLimit = int(sys.argv[1])
-    except:
-        sys.exit(f"\n🛑 Something went wrong. Correct usage is:\npython3 {sys.argv[0]} [integer price limit]\n")
 else:
     sys.exit("\n🛑 Incorrect usage. Correct usage is:\n'python3 {sys.argv[0]} [integer price limit] [filtered Newegg URL]'\n")
 
-print(f"\n🔵 Checking Newegg for products with a price limit of ${priceLimit}...\n   Press CTRL + C to exit.\n")
+print(f"\n🔵  Checking Newegg for products with a price limit of ${priceLimit}...\n    Press CTRL + C to exit.\n")
 
 numLoops = 0
 numDealsSeen = 0
@@ -59,20 +56,45 @@ def notify():
     notification.send()
     playsound(config.notificationSoundFile)
 
+def sendEmail(subject, msg):
+    message = MIMEMultipart("alternative")
+    message["To"] = smtpConfig.recipientEmail
+    message["From"] = smtpConfig.senderEmail
+    message["Subject"] = subject
+
+    htmlMsg = f' <html> <body> <p> {msg} </p> </body> </html> '
+
+    message.attach(MIMEText(msg, 'plain'))
+    message.attach(MIMEText(htmlMsg, 'html'))
+
+    smtp = smtplib.SMTP("smtp.gmail.com", 587)
+    smtp.starttls()
+    smtp.login(smtpConfig.senderEmail, smtpConfig.senderPassword)
+    smtp.sendmail(smtpConfig.senderEmail, smtpConfig.recipientEmail, message.as_string())
+    smtp.quit()
+
 if __name__ == "__main__":
     while True:
         try:
             items = getItems()
             deals = checkPrices(items)
+
             if len(deals) > 0:
+                date = datetime.now()
+                timestamp = date.strftime("%d-%b-%Y (%H:%M:%S)")
+                consoleMessage = f"🕑  {timestamp}\n\n"
+                msg = f"<h1>Found something for you!</h1><h3>{timestamp}</h3>"
                 numDealsSeen += len(deals)
                 for deal in deals:
-                    print("💵 " + deal["price"] + " (shipping not incl.)")
-                    # title of product up to 75 chars
-                    print("🎮 " + deal["name"][:75] )
-                    print("🔗 " + deal["href"] + "\n")
-                thread = Thread(target=notify, daemon=True)
-                thread.start()
+                    consoleMessage += f"💵  {deal['price']}  (shipping not incl.)\n🎮  {deal['name'][:75]}\n🔗  {deal['href']}\n\n"
+                    msg += f"💵 <strong>Price:</strong>  {deal['price']}  (shipping not incl.)<br>🎮 <strong>Product</strong>:  {deal['name'][:75]}<br>🔗 <strong>Link</strong>:  {deal['href']}<br><br>"
+                msg += f"<hr> <p>This email was generated and sent by a script. Visit <a href='https://github.com/rosspayn3/newegg-tracker'>https://github.com/rosspayn3/newegg-tracker</a> for more information.</p>"
+                print(consoleMessage)
+                notifyThread = Thread(target=notify, daemon=True)
+                notifyThread.start()
+                emailThread = Thread(target=sendEmail("Found a deal!", msg), daemon=True)
+                emailThread.start()
+
             numLoops += 1
             print(f"\n============ Total checks: {numLoops}  |  Total product deals seen: {numDealsSeen} ============")
             print(f"                          Press CTRL + C to exit.\n")
