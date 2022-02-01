@@ -51,6 +51,6 @@ python3 newegg-3060-ti.py [999]
 python3 newegg-generic.py 600 "https://www.newegg.com/p/pl?N=100007709%204131%20601359415&PageSize=96&Order=1"
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;**Note: if a price filter is set on the Newegg URL, it must be higher than the amount passed to the script or no results will ever be returned.*
+**Note: if a price filter is set on the Newegg URL, it must be higher than the amount passed to the script or no results will ever be returned.*
 
 
