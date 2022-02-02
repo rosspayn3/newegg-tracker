@@ -62,7 +62,7 @@ def sendEmail(subject, msg):
     message["From"] = smtpConfig.senderEmail
     message["Subject"] = subject
 
-    htmlMsg = f' <html> <body> <p> {msg} </p> </body> </html> '
+    htmlMsg = f' <html> <body> {msg} </body> </html> '
 
     message.attach(MIMEText(msg, 'plain'))
     message.attach(MIMEText(htmlMsg, 'html'))
